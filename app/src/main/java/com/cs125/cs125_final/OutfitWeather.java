@@ -23,8 +23,20 @@ public class OutfitWeather extends AppCompatActivity {
         outfitDisplay2 = findViewById(R.id.outfitDisplay2);
         outfitDisplay2.setText("");
 
-        int nowTemp = MainActivity.temp;
-        if (nowTemp < 50) {
+        int nowTemp;
+        switch (MainActivity.city){
+            case 1:
+                nowTemp = MainActivity.chicagoTemp;
+                break;
+            case 2:
+                nowTemp = MainActivity.sfTemp;
+                break;
+            default:
+                nowTemp = MainActivity.australiaTemp;
+                break;
+        }
+
+        if (nowTemp < 40) {
             Random rand = new Random();
             int index = rand.nextInt(NewPiece.jacketsList.size());
             Log.e("Index is", ((Integer) index).toString());
@@ -49,7 +61,7 @@ public class OutfitWeather extends AppCompatActivity {
             rand = new Random();
             index = rand.nextInt(NewPiece.accessoriesList.size());
             outfitDisplay2.append("ACCESSORY:  " + NewPiece.accessoriesList.get(index) + "\n");
-        } else if (nowTemp < 65) {
+        } else if (nowTemp < 50) {
             Random rand = new Random();
             int index = rand.nextInt(NewPiece.sweatersList.size());
             outfitDisplay2.append("SWEATER:  " + NewPiece.sweatersList.get(index) + "\n");

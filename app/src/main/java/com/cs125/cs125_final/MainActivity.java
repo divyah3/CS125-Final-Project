@@ -24,14 +24,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    public static int temp;
+    public static int chicagoTemp;
+    public static int sfTemp;
+    public static int australiaTemp;
+    public static int city = -1;
     /** Default logging tag for messages from the main activity. */
     private static final String TAG = "Lab12:Main";
 
     /** Request queue for our network requests. */
     private static RequestQueue requestQueue;
 
-    public Button mainGenOutfit, mainAddNewPiece, mainGenButton;
+    public Button mainGenOutfit, mainAddNewPiece, chicagoButton, sfButton, australiaButton;
     //public String status = "";
 
     @Override
@@ -41,7 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //status = "main";
         mainGenOutfit = findViewById(R.id.mainGenOutfit);
         mainAddNewPiece = findViewById(R.id.mainAddNewPiece);
-        mainGenButton = findViewById(R.id.mainGenButton);
+        chicagoButton = findViewById(R.id.chicagoButton);
+        sfButton = findViewById(R.id.sfButton);
+        australiaButton = findViewById(R.id.australiaButton);
 
         mainGenOutfit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,14 +72,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        mainGenButton.setOnClickListener(new View.OnClickListener() {
+        chicagoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                city = 1;
                 Intent intent = new Intent(MainActivity.this,
                         OutfitWeather.class);
                 startActivity(intent);
             }
         });
+
+        sfButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                city = 2;
+                Intent intent = new Intent(MainActivity.this,
+                        OutfitWeather.class);
+                startActivity(intent);
+            }
+        });
+
+        australiaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                city = 3;
+                Intent intent = new Intent(MainActivity.this,
+                        OutfitWeather.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 
@@ -94,11 +121,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         try {
                             JSONArray ja = response.getJSONArray("consolidated_weather");
                             JSONObject todaysData = ja.getJSONObject(0);
-                            temp = todaysData.getInt("the_temp");
-                            temp = 9/5 * temp + 32;
-                            TextView tw = findViewById(R.id.weatherDisplay);
-                            tw.setText(String.valueOf(temp) + "°F");
-                            Log.e("The temp", String.valueOf(temp) + "°F");
+                            chicagoTemp = todaysData.getInt("the_temp");
+                            chicagoTemp = 9/5 * chicagoTemp + 32;
+                            chicagoButton.setText("Chicago, USA: " + String.valueOf(chicagoTemp) + "°F");
+                            Log.e("The temp", String.valueOf(chicagoTemp) + "°F");
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.e("ERRRRORRRRRRRRRR BOIS", "AYLMAO");
@@ -112,6 +138,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         requestQueue.add(jsonObjectRequest);
+
+
+        JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(
+                Request.Method.GET,
+                "https://www.metaweather.com/api/location/2487956/",
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(final JSONObject response) {
+                        Log.e("we are ", "here");
+                        try {
+                            JSONArray ja = response.getJSONArray("consolidated_weather");
+                            JSONObject todaysData = ja.getJSONObject(0);
+                            sfTemp = todaysData.getInt("the_temp");
+                            sfTemp = 9/5 * sfTemp + 32;
+                            sfButton.setText("San Francisco, USA: " + String.valueOf(sfTemp) + "°F");
+                            Log.e("The temp", String.valueOf(sfTemp) + "°F");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("ERRRRORRRRRRRRRR BOIS", "AYLMAO");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.w(TAG, error.toString());
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest2);
+
+
+
+        JsonObjectRequest jsonObjectRequest3 = new JsonObjectRequest(
+                Request.Method.GET,
+                "https://www.metaweather.com/api/location/1100661/",
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(final JSONObject response) {
+                        Log.e("we are ", "here");
+                        try {
+                            JSONArray ja = response.getJSONArray("consolidated_weather");
+                            JSONObject todaysData = ja.getJSONObject(0);
+                            australiaTemp = todaysData.getInt("the_temp");
+                            australiaTemp = 9/5 * australiaTemp + 32;
+                            australiaButton.setText("Brisbane, Australia: " + String.valueOf(australiaTemp) + "°F");
+                            Log.e("The temp", String.valueOf(australiaTemp) + "°F");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("ERRRRORRRRRRRRRR BOIS", "AYLMAO");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.w(TAG, error.toString());
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest3);
 
         /*
         {
