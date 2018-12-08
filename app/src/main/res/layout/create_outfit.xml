@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:fontFamily="casual"
+            android:text="Generate Outfit!"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/cbJacket"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Jacket"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/cbSweater"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Sweater"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/cbShirt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Shirt"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/cbPants"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Pants"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/cbShorts"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Shorts"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/cbSocks"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Socks"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/cbAccessories"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Accessories"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <Button
+            android:id="@+id/createOutfitGen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="casual"
+            android:text="GENERATE"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
